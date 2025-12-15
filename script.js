@@ -2,8 +2,8 @@ const player = document.getElementById('player');
 const gameContainer = document.getElementById('game-container');
 const scoreElement = document.getElementById('score');
 const startMessage = document.getElementById('start-message');
-const mainMenu = document.getElementById('main-menu'); // Referencia al menú
-const startBtn = document.getElementById('start-btn'); // Referencia al botón
+const mainMenu = document.getElementById('main-menu');
+const startBtn = document.getElementById('start-btn');
 
 let gameRunning = false;
 let score = 0;
@@ -26,7 +26,7 @@ startBtn.addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (e) => {
-    if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
+    if (keys.hasOwnProperty(e.key)) keys[e.key] = true;  
     if (!gameRunning && mainMenu.style.display === 'none' && e.key === ' ') {
         startGame();
     }

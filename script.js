@@ -20,20 +20,13 @@ let gameLoopTimer;
 const badItemsList = ['pocion', 'libro', 'bola', 'arana'];
 const keys = { ArrowRight: false, ArrowLeft: false };
 
-// --- EVENTO DEL BOTÓN DE INICIO ---
 startBtn.addEventListener('click', () => {
-    mainMenu.style.display = 'none'; // Ocultar menú
-    startGame(); // Arrancar juego
+    mainMenu.style.display = 'none'; 
+    startGame(); 
 });
 
-// --- CONTROLES DE TECLADO ---
 document.addEventListener('keydown', (e) => {
     if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
-    
-    // NOTA: He quitado la parte que iniciaba el juego con cualquier tecla
-    // para obligar a usar el botón o reiniciar desde el Game Over.
-    
-    // Si estamos en Game Over (no corriendo y menú oculto), reiniciar con tecla
     if (!gameRunning && mainMenu.style.display === 'none' && e.key === ' ') {
         startGame();
     }
@@ -56,7 +49,6 @@ function startGame() {
     objectSpeed = 4;
     scoreElement.innerText = "Puntos: 0";
     
-    // Ocultar mensajes y menú
     startMessage.style.display = 'none';
     mainMenu.style.display = 'none';
     

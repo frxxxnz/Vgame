@@ -5,17 +5,15 @@ const startMessage = document.getElementById('start-message');
 
 let gameRunning = false;
 let score = 0;
-const winningScore = 20;
+const winningScore = 100;
 let playerX = 50;
 const playerSpeed = 8;
 const bgSpeed = 4;           
 let bgPosition = 0;          
-const fps = 60;
-const framedelay = 1000 / fps;
 
 let objectSpeed = 4;
 let objectSpawnTimer;
-let gameLoopId;
+let gameLoopTimer;
 
 const badItemsList = ['pocion', 'libro', 'bola', 'arana'];
 const keys = { ArrowRight: false, ArrowLeft: false };
@@ -29,19 +27,12 @@ document.addEventListener('keyup', (e) => {
     if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
 });
 
-function gameLoop(timestamp) {
+function gameLoop() {
     if (!gameRunning) return;
-
-    gameLoopId = requestAnimationFrame(gameLoop);
-
-    const deltaTime = timestamp - lastTime;
-
-    if (deltaTime >= frameDelay) {
-        lastTime = timestamp - (deltaTime % frameDelay);
-        updatePlayerAndBackground();
-        updateObjects();
-    }
+    updatePlayerAndBackground();
+    updateObjects();
 }
+
 function startGame() {
     if (gameRunning) return;
     gameRunning = true;
@@ -56,36 +47,39 @@ function startGame() {
     bgPosition = 0;
     player.style.left = playerX + "px";
     gameContainer.style.backgroundPositionX = bgPosition + "px";
-
-    player.classList.remove("dead"); 
+    
+    player.classList.remove("dead");
     player.classList.remove("run");
-    player.classList.add("idle"); 
-    player.style.backgroundPositionY = "";
+    player.classList.add("idle");
+    player.style.backgroundPositionY = ""; 
     
-    lastTime = performance.now(); 
-    gameLoop(lastTime);
+    clearInterval(gameLoopTimer);
+    gameLoopTimer = setInterval(gameLoop, 16); 
     
-    gameLoop();
+    clearInterval(objectSpawnTimer);
     objectSpawnTimer = setInterval(createFallingObject, 1200);
 }
 
 function gameOver() {
     gameRunning = false;
+    
     clearInterval(objectSpawnTimer);
-    cancelAnimationFrame(gameLoopId);
+    clearInterval(gameLoopTimer);
 
     player.classList.remove("run");
     player.classList.remove("idle");
     player.style.backgroundPositionY = "";
     player.classList.add("dead");
-    startMessage.innerHTML = `<p style="color: #ff4444; font-size: 40px;">¡GOLPE!</p>Puntos: ${score}<br><p style="margin-top:30px; color: #d4af37; animation: blink 1s infinite;">Presiona para jugar</p>`;    
-    startMessage.style.display = 'block';
+    
+    startMessage.innerHTML = `<p style="color: #ff4444; font-size: 40px;">¡GOLPE!</p>Puntos: ${score}<br><p style="margin-top:30px; color: #d4af37; animation: blink 1s infinite;">Presiona para jugar</p>`;
+    startMessage.style.display = 'flex';
 }
 
 function gameWin() {
     gameRunning = false;
+    
     clearInterval(objectSpawnTimer);
-    cancelAnimationFrame(gameLoopId);
+    clearInterval(gameLoopTimer);
 
     player.classList.remove("run");
     player.classList.add("idle");

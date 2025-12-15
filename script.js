@@ -2,6 +2,8 @@ const player = document.getElementById('player');
 const gameContainer = document.getElementById('game-container');
 const scoreElement = document.getElementById('score');
 const startMessage = document.getElementById('start-message');
+const mainMenu = document.getElementById('main-menu'); // Referencia al menú
+const startBtn = document.getElementById('start-btn'); // Referencia al botón
 
 let gameRunning = false;
 let score = 0;
@@ -18,9 +20,23 @@ let gameLoopTimer;
 const badItemsList = ['pocion', 'libro', 'bola', 'arana'];
 const keys = { ArrowRight: false, ArrowLeft: false };
 
+// --- EVENTO DEL BOTÓN DE INICIO ---
+startBtn.addEventListener('click', () => {
+    mainMenu.style.display = 'none'; // Ocultar menú
+    startGame(); // Arrancar juego
+});
+
+// --- CONTROLES DE TECLADO ---
 document.addEventListener('keydown', (e) => {
     if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
-    if (!gameRunning) startGame();
+    
+    // NOTA: He quitado la parte que iniciaba el juego con cualquier tecla
+    // para obligar a usar el botón o reiniciar desde el Game Over.
+    
+    // Si estamos en Game Over (no corriendo y menú oculto), reiniciar con tecla
+    if (!gameRunning && mainMenu.style.display === 'none' && e.key === ' ') {
+        startGame();
+    }
 });
 
 document.addEventListener('keyup', (e) => {
@@ -39,7 +55,10 @@ function startGame() {
     score = 0;
     objectSpeed = 4;
     scoreElement.innerText = "Puntos: 0";
+    
+    // Ocultar mensajes y menú
     startMessage.style.display = 'none';
+    mainMenu.style.display = 'none';
     
     document.querySelectorAll('.item').forEach(item => item.remove());
     
@@ -71,7 +90,8 @@ function gameOver() {
     player.style.backgroundPositionY = "";
     player.classList.add("dead");
     
-    startMessage.innerHTML = `<p style="color: #ff4444; font-size: 40px;">¡GOLPE!</p>Puntos: ${score}<br><p style="margin-top:30px; color: #d4af37; animation: blink 1s infinite;">Presiona para jugar</p>`;
+    // Mensaje de Game Over
+    startMessage.innerHTML = `<p style="color: #ff4444; font-size: 40px;">¡GOLPE!</p>Puntos: ${score}<br><p style="margin-top:30px; color: #d4af37; animation: blink 1s infinite;">Presiona ESPACIO para reiniciar</p>`;
     startMessage.style.display = 'flex';
 }
 
@@ -90,7 +110,7 @@ function gameWin() {
         <p>¡Llegaste a Hogwarts a tiempo!</p>
         <br>
         <p style="font-size: 20px;">Puntos: ${score}</p>
-        <p style="margin-top:30px; color: white; animation: blink 1s infinite;">Presiona para jugar otra vez</p>
+        <p style="margin-top:30px; color: white; animation: blink 1s infinite;">Presiona ESPACIO para jugar otra vez</p>
     `;
     startMessage.style.display = 'flex'; 
 }

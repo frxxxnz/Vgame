@@ -141,3 +141,95 @@ body {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
 }
+
+
+#main-menu {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.94); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    z-index: 100;
+    padding-top: 10px; 
+}
+
+
+.game-title {
+    font-size: 38px; 
+    color: #ffd700;
+    text-align: center;
+    margin: 0;
+    line-height: 1; 
+    text-shadow: 2px 2px 0px #5c4f3a, 0 0 10px rgba(255, 215, 0, 0.5);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.game-subtitle {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px; 
+    font-style: italic;
+}
+
+
+.rules-box {
+    background-color: rgba(20, 20, 20, 0.8); 
+    border: 1px solid #5c4f3a;
+    padding: 8px 20px; 
+    border-radius: 6px;
+    margin-bottom: 15px; 
+    text-align: left;
+}
+
+.rules-box h3 {
+    color: #ffd700;
+    margin: 0 0 4px 0;
+    text-align: center;
+    font-size: 14px; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #444;
+}
+
+.rules-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rules-box li {
+    color: #ddd;
+    font-size: 13px;
+    margin-bottom: 2px; 
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+
+
+#start-btn {
+    background-color: #740001;
+    color: #ffd700;
+    border: 2px solid #d4af37;
+    padding: 8px 25px; 
+    font-size: 16px; 
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 3px 0 #3b0f0f;
+    transition: all 0.1s;
+}
+
+#start-btn:hover {
+    background-color: #9e0002;
+    transform: scale(1.05); 
+}
+
+#start-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #3b0f0f;
+}

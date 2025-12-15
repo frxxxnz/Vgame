@@ -3,15 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura en Hogwarts</title>
+    <title>Hogwarts Run</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="game-container">
-        <div id="player" class="idle"></div>
         <div id="score">Puntos: 0</div>
-        <div id="start-message">Presiona una tecla para iniciar</div>
+        
+        <div id="main-menu">
+            <h1 class="game-title">VRUN<br></h1>
+            <p class="game-subtitle">Llega a clase a salvo</p>
+            
+            <div class="rules-box">
+                <h3>📜 CÓMO JUGAR</h3>
+                <ul>
+                    <li>⬅️ ➡️ Usa las <strong>Flechas</strong> para moverte.</li>
+                    <li>🦉 Atrapa a <strong>Hedwig</strong> para ganar puntos.</li>
+                    <li>☠️ Esquiva pociones, libros y arañas.</li>
+                    <li>🏆 ¡Llega a <strong>100 Puntos</strong> para ganar!</li>
+                </ul>
+            </div>
+
+            <button id="start-btn">COMENZAR AVENTURA</button>
+        </div>
+
+        <div id="start-message" style="display: none;"></div>
+
+        <div id="player" class="idle"></div>
     </div>
 
     <script src="script.js"></script>

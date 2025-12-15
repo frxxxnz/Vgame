@@ -10,6 +10,8 @@ let playerX = 50;
 const playerSpeed = 8;
 const bgSpeed = 4;           
 let bgPosition = 0;          
+const fps = 60;
+const framedelay = 1000 / fps;
 
 let objectSpeed = 4;
 let objectSpawnTimer;
@@ -27,13 +29,19 @@ document.addEventListener('keyup', (e) => {
     if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
 });
 
-function gameLoop() {
+function gameLoop(timestamp) {
     if (!gameRunning) return;
-    updatePlayerAndBackground(); 
-    updateObjects();
-    gameLoopId = requestAnimationFrame(gameLoop);
-}
 
+    gameLoopId = requestAnimationFrame(gameLoop);
+
+    const deltaTime = timestamp - lastTime;
+
+    if (deltaTime >= frameDelay) {
+        lastTime = timestamp - (deltaTime % frameDelay);
+        updatePlayerAndBackground();
+        updateObjects();
+    }
+}
 function startGame() {
     if (gameRunning) return;
     gameRunning = true;
@@ -53,6 +61,9 @@ function startGame() {
     player.classList.remove("run");
     player.classList.add("idle"); 
     player.style.backgroundPositionY = "";
+    
+    lastTime = performance.now(); 
+    gameLoop(lastTime);
     
     gameLoop();
     objectSpawnTimer = setInterval(createFallingObject, 1200);
